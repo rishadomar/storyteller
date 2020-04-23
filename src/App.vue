@@ -1,12 +1,22 @@
 <template>
-  <div id="app">
-    <div id="nav">
+  <div id="app" class="py-6">
+    <Logo />
+    <div id="nav" class="my-6 mx-4">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+import Logo from './components/Logo'
+export default {
+  components: {
+    Logo
+  }
+}
+</script>
 
 <style>
 #app {
@@ -15,10 +25,16 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+
+  max-width: 380px;
+  margin: 0 auto;
+  background-color: #51d0de;
 }
 
 #nav {
-  padding: 30px;
+  padding: 5px 20px;
+  border-top: 1px solid theme('colors.purple');
+  border-bottom: 1px solid theme('colors.purple');
 }
 
 #nav a {

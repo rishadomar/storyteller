@@ -9,11 +9,10 @@
                 v-bind:key="page.number"
                 class="img-wrapper"
             >
-                <img :src="page.image" />
+                <img :src="page.image" class="rounded-lg"/>
                 <span class="content">
                     {{ page.content }}
                 </span>
-                -->
             </div>
         </VueSlickCarousel>
     </div>
@@ -22,6 +21,8 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import VueSlickCarousel from "vue-slick-carousel";
+import 'vue-slick-carousel/dist/vue-slick-carousel.css';
+import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css';
 
 export default {
     name: "Story",
@@ -100,9 +101,10 @@ export default {
     padding: 40px;
 }
 .img-wrapper img {
-    margin: auto;
-    width: 200px;
-    height: 100px;
+    margin: 0 auto 1rem;
+    max-width: 100%;
+    height: 200px;
     background-image: linear-gradient(gray 100%, transparent 0);
+    border: 2px solid theme('colors.white');
 }
 </style>
