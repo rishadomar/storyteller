@@ -1,5 +1,5 @@
 <template>
-    <div id="app" class="py-6">
+    <div id="app" class="pb-6">
 		<div class="nav-wrap flex items-center justify-between px-4">
 			<Logo />
 			<div id="nav" class="">
@@ -26,8 +26,14 @@ export default {
 </script>
 
 <style>
+html {
+	font-size:16px;
+}
 body {
 	background-color: theme('colors.black');
+}
+body.bm-overlay {
+    background: rgba(24,24,30);
 }
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -44,6 +50,31 @@ body {
 .nav-wrap {
 	border-bottom: 1px solid theme('colors.primary');
     padding-bottom: 20px;
+	overflow: hidden;
+    padding-top: 20px;
+    position: relative;
+}
+
+.nav-wrap::after {
+	content: "";
+	width: 100%;
+    position: absolute;
+    bottom: -9px;
+    right: 50%;
+    height: 10px;
+    background-color: #3F51B5;
+    transform: rotate(-45deg);
+}
+
+.nav-wrap::before {
+	content: "";
+	width: 100%;
+    position: absolute;
+    bottom: -9px;
+    right: 45%;
+	height: 10px;
+    background-color: #3f51b58c;
+    transform: rotate(-45deg);
 }
 
 #nav {

@@ -13,7 +13,11 @@ export default {
 </script>
 
 <style scoped>
+header {
+    z-index: 3;
+}
 header h1 {
+    z-index: 3;
     font-size: 2rem;
     color: theme('colors.white');
     font-weight: 600
