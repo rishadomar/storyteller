@@ -21,6 +21,6 @@ header h1 {
 
 header h1 span {
     font-size: 2rem;
-    color: theme('colors.purple');
+    color: theme('colors.primary');
 }
 </style>

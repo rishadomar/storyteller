@@ -1,48 +1,72 @@
 <template>
-  <div id="app" class="py-6">
-    <Logo />
-    <div id="nav" class="my-6 mx-4">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id="app" class="py-6">
+		<div class="nav-wrap flex items-center justify-between px-4">
+			<Logo />
+			<div id="nav" class="">
+				<Slide  :crossIcon="true">
+					<router-link to="/">Home</router-link>
+					<router-link to="/about">About</router-link>
+				</Slide>
+			</div>
+		</div>
+        
+        <router-view />
     </div>
-    <router-view/>
-  </div>
 </template>
 
 <script>
-import Logo from './components/Logo'
+import Logo from "./components/Logo";
+import { Slide } from "vue-burger-menu";
 export default {
-  components: {
-    Logo
-  }
-}
+    components: {
+        Logo,
+        Slide
+    }
+};
 </script>
 
 <style>
+body {
+	background-color: theme('colors.black');
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin: 0 auto;
+    background-color: theme('colors.black');
+	min-height: 100vh;
+	max-width: 400px;
+}
 
-  max-width: 380px;
-  margin: 0 auto;
-  background-color: #51d0de;
+.nav-wrap {
+	border-bottom: 1px solid theme('colors.primary');
+    padding-bottom: 20px;
 }
 
 #nav {
-  padding: 5px 20px;
-  border-top: 1px solid theme('colors.purple');
-  border-bottom: 1px solid theme('colors.purple');
+	position: relative;
+}
+
+#nav .bm-burger-button {
+	position: relative;
+	left: auto;
+	top: auto;
+	height: 20px;
+	width: 25px;
+}
+#nav .bm-burger-button .bm-burger-bars {
+	background-color: theme('colors.primary');
 }
 
 #nav a {
-  font-weight: bold;
-  color: #2c3e50;
+    font-weight: bold;
+    color: theme('colors.primary');
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+    color: #42b983;
 }
 </style>
