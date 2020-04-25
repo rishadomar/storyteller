@@ -50,15 +50,9 @@ const actions = {
 			.get()
 			.then(function(querySnapshot) {
 				querySnapshot.forEach(function(doc) {
-					console.log(doc.id, " => ", doc.data());
-					context.commit('ADD_STORY', JSON.parse(doc.data().data))
+					context.commit('ADD_STORY', JSON.parse(doc.data().details))
 				});
 			})
-			// .then(document => {
-			// 	let story = document.data
-			// 	console.log('Story = ' + story.data())
-			// 	context.commit('ADD_STORY', JSON.parse(story.data))
-			// })
 			.catch(function (error) {
 				alert('Error encountered fetching story from cache: ' + params.storyId + ' Error:' + error.code)
 			})

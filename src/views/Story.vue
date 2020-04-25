@@ -1,7 +1,10 @@
 <template>
     <div id="story-component" class="carousel-wrapper">
         <VueSlickCarousel
+            v-if="story"
             v-bind="slickOptions"
+            @afterChange="pageLoaded"
+            @beforeChange="beforePageLoaded"
         >
             <div
                 v-for="page in story.pages"
@@ -14,6 +17,9 @@
                 </span>
             </div>
         </VueSlickCarousel>
+
+        <button v-if="playing && !paused" @click="pauseAudio">Pause</button>
+        <button v-if="paused" @click="continueAudio">Continue</button>
     </div>
 </template>
 
@@ -42,15 +48,13 @@ export default {
     },
 
     mounted() {
-        if (this.story && this.story.audio) {
-            this.audio = new Audio(this.story.audio)
-            this.audio.play()
-        }
     },
 
     data() {
         return {
             audio: null,
+            playing: false,
+            paused: false,
             currentPageNumber: 1,
             slickOptions: {
                 slidesToShow: 1,
@@ -65,6 +69,49 @@ export default {
         ...mapActions({
             fetchStory: "stories/fetchStoryFromCache"
         }),
+
+        beforePageLoaded(oldSlideIndex, newSlideIndex) {
+            console.log('before/after page loading: ' + oldSlideIndex + '/' + newSlideIndex)
+            if (this.playing) {
+                this.stopAudio()
+            }
+        },
+
+        pageLoaded(slideIndex) {
+            this.currentPageNumber = slideIndex + 1
+            this.playAudio()
+            console.log('page loaded: ' + this.currentPageNumber)
+        },
+
+        stopAudio() {
+            if (this.playing) {
+                this.audio.pause()
+                this.playing = false
+            }
+        },
+
+        playAudio() {
+            let page = this.story.pages[this.currentPageNumber - 1]
+            this.audio = new Audio(page.audio)
+            this.audio.play()
+            this.playing = true
+        },
+
+        pauseAudio() {
+            console.log('Pause audio')
+            if (this.playing) {
+                this.audio.pause()
+                this.paused = true
+            }
+        },
+
+        continueAudio() {
+            console.log('Continue audio')
+            if (this.paused) {
+                this.audio.play()
+                this.paused = false
+            }
+        },
 
         gotoNextPage: function() {
             this.currentPageNumber++;
