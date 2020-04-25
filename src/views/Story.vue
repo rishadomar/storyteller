@@ -66,6 +66,10 @@ export default {
         };
     },
 
+	beforeDestroy: function() {
+        this.stopAudio()
+	},
+
     methods: {
         ...mapActions({
             fetchStory: "stories/fetchStoryFromCache"
@@ -91,6 +95,7 @@ export default {
             if (this.playing) {
                 this.audio.pause()
                 this.playing = false
+                this.audio.removeEventListener("ended", this.endAudio);
             }
         },
 
@@ -98,6 +103,7 @@ export default {
             let page = this.story.pages[this.currentPageNumber - 1]
             if (page.audio.length > 0) {
                 this.audio = new Audio(page.audio)
+                this.audio.addEventListener("ended", this.endAudio)
                 this.audio.play()
                 this.playing = true
             }
@@ -112,6 +118,7 @@ export default {
 
         endAudio() {
             this.playing = false
+            this.audio.removeEventListener("ended", this.endAudio);
         },
 
         continueAudio() {
