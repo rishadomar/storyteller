@@ -1,7 +1,6 @@
 <template>
     <div id="story-component" class="carousel-wrapper">
         <VueSlickCarousel
-            v-if="story && story.pages.length > 0"
             v-bind="slickOptions"
         >
             <div
@@ -9,7 +8,7 @@
                 v-bind:key="page.number"
                 class="img-wrapper"
             >
-                <img :src="page.image" class="rounded-lg"/>
+                <img :src="page.image" class="rounded-lg" />
                 <span class="content">
                     {{ page.content }}
                 </span>
@@ -21,8 +20,8 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import VueSlickCarousel from "vue-slick-carousel";
-import 'vue-slick-carousel/dist/vue-slick-carousel.css';
-import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css';
+import "vue-slick-carousel/dist/vue-slick-carousel.css";
+import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 
 export default {
     name: "Story",
@@ -42,8 +41,16 @@ export default {
         this.fetchStory({ storyId: this.storyId });
     },
 
+    mounted() {
+        if (this.story && this.story.audio) {
+            this.audio = new Audio(this.story.audio)
+            this.audio.play()
+        }
+    },
+
     data() {
         return {
+            audio: null,
             currentPageNumber: 1,
             slickOptions: {
                 slidesToShow: 1,
@@ -56,7 +63,7 @@ export default {
 
     methods: {
         ...mapActions({
-            fetchStory: "stories/fetchStory"
+            fetchStory: "stories/fetchStoryFromCache"
         }),
 
         gotoNextPage: function() {
@@ -105,6 +112,6 @@ export default {
     max-width: 100%;
     height: 200px;
     background-image: linear-gradient(gray 100%, transparent 0);
-    border: 2px solid theme('colors.white');
+    border: 2px solid theme("colors.white");
 }
 </style>
