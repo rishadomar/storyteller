@@ -71,7 +71,7 @@ export default {
             fetchStory: "stories/fetchStoryFromCache"
         }),
 
-        beforePageLoaded(oldSlideIndex, newSlideIndex) {
+        beforePageLoaded() {
             if (this.playing) {
                 this.stopAudio()
             }

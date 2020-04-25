@@ -147,7 +147,6 @@ const actions = {
 			let url = await pathReference.getDownloadURL()
 			let audioPathReference = storage.ref(story.id + '/pages/' + data.number + '.mp3')
 			let audioUrl = await audioPathReference.getDownloadURL()
-			console.log('page: ' + data.number + ' ' + audioUrl)
 			pages.push({
 				id: doc.id,
 				content: data.content,
