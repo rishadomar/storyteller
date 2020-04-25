@@ -3,8 +3,9 @@
         <VueSlickCarousel
             v-if="story"
             v-bind="slickOptions"
-            @afterChange="pageLoaded"
             @beforeChange="beforePageLoaded"
+            @init="firstPageLoaded"
+            @afterChange="pageLoaded"
         >
             <div
                 v-for="page in story.pages"
@@ -71,16 +72,19 @@ export default {
         }),
 
         beforePageLoaded(oldSlideIndex, newSlideIndex) {
-            console.log('before/after page loading: ' + oldSlideIndex + '/' + newSlideIndex)
             if (this.playing) {
                 this.stopAudio()
             }
         },
 
+        firstPageLoaded() {
+            this.currentPageNumber = 1
+            this.playAudio()
+        },
+
         pageLoaded(slideIndex) {
             this.currentPageNumber = slideIndex + 1
             this.playAudio()
-            console.log('page loaded: ' + this.currentPageNumber)
         },
 
         stopAudio() {
@@ -92,21 +96,25 @@ export default {
 
         playAudio() {
             let page = this.story.pages[this.currentPageNumber - 1]
-            this.audio = new Audio(page.audio)
-            this.audio.play()
-            this.playing = true
+            if (page.audio.length > 0) {
+                this.audio = new Audio(page.audio)
+                this.audio.play()
+                this.playing = true
+            }
         },
 
         pauseAudio() {
-            console.log('Pause audio')
             if (this.playing) {
                 this.audio.pause()
                 this.paused = true
             }
         },
 
+        endAudio() {
+            this.playing = false
+        },
+
         continueAudio() {
-            console.log('Continue audio')
             if (this.paused) {
                 this.audio.play()
                 this.paused = false
