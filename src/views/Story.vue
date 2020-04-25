@@ -12,8 +12,8 @@
                 v-bind:key="page.number"
                 class="img-wrapper"
             >
-                <img :src="page.image" class="rounded-lg" />
-                <span class="content">
+                <img :src="page.image" class="rounded-lg"/>
+                <span class="content text-xl">
                     {{ page.content }}
                 </span>
             </div>
@@ -167,6 +167,10 @@ export default {
     max-width: 100%;
     height: 200px;
     background-image: linear-gradient(gray 100%, transparent 0);
-    border: 2px solid theme("colors.white");
+    border: 2px solid theme('colors.primary');
+}
+
+.content {
+    color: theme('colors.white');
 }
 </style>
