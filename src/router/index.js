@@ -6,7 +6,8 @@ Vue.use(VueRouter)
 const routes = [
     {
         path: '/',
-        redirect: '/stories'
+        props: () => ({ storyId: 120 }),
+        component: () => import('@/views/Story.vue')
     },
     {
         path: '/stories',

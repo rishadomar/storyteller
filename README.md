@@ -3,6 +3,7 @@
 ## Project setup
 ```
 npm install
+create .env.development.local & .env.production.local # see .env.example
 ```
 
 ### Compiles and hot-reloads for development
@@ -34,3 +35,8 @@ firebase login
 firebase init
 vue add router
 npm run serve
+
+### To test prod
+Ensure you have .env.production.local (you can copy .env.development.local)
+npm run build
+serve dist # serve can be installed using sudo snap install serve OR try: npm install -g serve
